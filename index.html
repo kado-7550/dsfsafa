@@ -14,7 +14,7 @@ main{width:min(1120px,100%)}header{display:flex;justify-content:space-between;al
 svg{display:block;width:100%;height:auto;aspect-ratio:900/506}
 #homeScene,#templeScene{transition:opacity .45s ease}#hero,#monk{transition:transform .55s ease,opacity .3s ease}
 #hero.hidden,#monk.hidden{opacity:0;display:none}#hero.visible,#monk.visible{opacity:1;display:block}
-#monk.approach{transform:translate(520px 183px)}
+#stage.scene-change{animation:sceneFade .32s ease}@keyframes sceneFade{0%{filter:brightness(.65)}100%{filter:brightness(1)}}
 #broom.hidden{display:none}
 #location{position:absolute;left:16px;top:15px;border:1px solid #f2e8cf66;border-radius:99px;background:#17211ebd;color:#f4ead1;padding:7px 12px;font-size:.8rem;letter-spacing:.04em}
 #chapter{position:absolute;right:16px;top:15px;color:#fff4d7;text-shadow:0 1px 6px #000;font-size:.85rem}
@@ -109,12 +109,12 @@ const q=(s)=>document.querySelector(s),home=q("#homeScene"),temple=q("#templeSce
 function buttons(items){actions.replaceChildren();for(const item of items){const b=document.createElement("button");b.type="button";b.textContent=item.label;if(item.primary)b.className="primary";b.addEventListener("click",item.run);actions.append(b)}}
 function scene(place){const isTemple=place==="temple";home.style.display=isTemple?"none":"";temple.style.display=isTemple?"":"none";locationLabel.textContent=isTemple?"고려 시대 · 절 안":"현재 · 집"}
 function dialogue(name,line,items){speaker.textContent=name;text.textContent=line;buttons(items);stage.classList.remove("scene-change");void stage.offsetWidth;stage.classList.add("scene-change")}
-function reset(){scene("home");hero.setAttribute("class","hidden");monk.setAttribute("class","hidden");monk.classList.remove("approach");broom.setAttribute("class","hidden");dialogue("당신","집에 돌아온 당신은 침대에 누우며 말했습니다.\n“이제 좀 자야겠다.”",[{label:"잠든다",primary:true,run:wake}])}
+function reset(){scene("home");hero.setAttribute("class","hidden");hero.style.opacity="1";monk.setAttribute("class","hidden");monk.setAttribute("transform","translate(650 225)");broom.setAttribute("class","hidden");dialogue("당신","집에 돌아온 당신은 침대에 누우며 말했습니다.\n“이제 좀 자야겠다.”",[{label:"잠든다",primary:true,run:wake}])}
 function wake(){scene("temple");hero.setAttribute("class","visible");dialogue("당신","눈을 떠 보니 고려 시대의 절이었습니다.\n“여긴 어디지?” 어리둥절한 당신은 주위를 살폈습니다.",[{label:"주변을 둘러본다",primary:true,run:look},{label:"다시 잔다",run:sleep}])}
 function look(){dialogue("당신","주변을 둘러보다가 누군가 머리를 툭 쳤습니다.\n“아야!” 아픈 머리를 감싸고 옆을 돌아봤습니다.",[{label:"옆을 본다",primary:true,run:meet}])}
 function sleep(){hero.style.opacity=".55";monk.setAttribute("class","visible");broom.setAttribute("class","");dialogue("당신","다시 잠을 청하려는 순간, 스님이 빗자루로 당신을 때렸습니다!",[{label:"아야! 누구야?!!",primary:true,run:turnAfterBroom}])}
 function turnAfterBroom(){hero.style.opacity="1";dialogue("당신","“누구야?!!” 소리치며 옆을 돌아봤습니다.",[{label:"옆을 본다",primary:true,run:meet}])}
-function meet(){hero.style.opacity="1";monk.setAttribute("class","visible");monk.classList.add("approach");broom.setAttribute("class","hidden");dialogue("스님","옆을 보니 스님이 서 있었습니다.\n“여기서 뭐 하는 게냐?” 스님이 가까이 다가오자, 깜짝 놀란 당신은 비명을 질렀습니다.",[{label:"제1장 다시 보기",primary:true,run:reset}])}
+function meet(){hero.style.opacity="1";monk.setAttribute("class","visible");monk.setAttribute("transform","translate(520 225)");broom.setAttribute("class","hidden");dialogue("스님","옆을 보니 스님이 서 있었습니다.\n“여기서 뭐 하는 게냐?” 스님이 가까이 다가오자, 깜짝 놀란 당신은 비명을 질렀습니다.",[{label:"제1장 다시 보기",primary:true,run:reset}])}
 q("#restart").addEventListener("click",reset);reset();
 </script>
 </body>
