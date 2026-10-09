@@ -5,116 +5,126 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>직지, 선택의 기록 · 제1장</title>
 <style>
-:root{color-scheme:dark;--ink:#f6f0df;--muted:#d0c9b6;--gold:#d5b46f;--green:#294536;--panel:#17211edc}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#314439,#101714 78%);color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;display:grid;place-items:center;padding:20px}
+:root{color-scheme:dark;--ink:#f7f0e1;--gold:#e2c481;--panel:#17211ee8}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#34483a,#111814 78%);color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;display:grid;place-items:center;padding:20px}
 main{width:min(1120px,100%)}header{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:0 2px 14px}
 .brand small{display:block;color:var(--gold);font-size:.78rem;letter-spacing:.16em}.brand h1{font:700 clamp(1.3rem,3.4vw,2rem) Georgia,"Batang",serif;margin:4px 0 0}
-#restart{color:#eee7d6;background:#24372d;border:1px solid #a7986e;border-radius:9px;padding:8px 12px;font:inherit;cursor:pointer}
+button{font:inherit;color:#fff9e9;background:#31493a;border:1px solid #bca877;border-radius:8px;padding:9px 14px;cursor:pointer;transition:.15s}
+button:hover,button:focus-visible{background:#49664f;transform:translateY(-1px);outline:2px solid #f3d58f;outline-offset:2px}
+button.primary{background:#a3723e;border-color:#e0c287}
+#restart{color:#eee7d6;background:#24372d;border:1px solid #a7986e;border-radius:9px;padding:8px 12px}
 #stage{position:relative;overflow:hidden;border:1px solid #b69d68;border-radius:13px;background:#2e352b;box-shadow:0 24px 75px #0008;isolation:isolate}
 svg{display:block;width:100%;height:auto;aspect-ratio:900/506}
-#homeScene,#templeScene{transition:opacity .45s ease}#hero,#monk{transition:transform .55s ease,opacity .3s ease}
-#hero.hidden,#monk.hidden{opacity:0;display:none}#hero.visible,#monk.visible{opacity:1;display:block}
-#stage.scene-change{animation:sceneFade .32s ease}@keyframes sceneFade{0%{filter:brightness(.65)}100%{filter:brightness(1)}}
-#broom.hidden{display:none}
-#location{position:absolute;left:16px;top:15px;border:1px solid #f2e8cf66;border-radius:99px;background:#17211ebd;color:#f4ead1;padding:7px 12px;font-size:.8rem;letter-spacing:.04em}
-#chapter{position:absolute;right:16px;top:15px;color:#fff4d7;text-shadow:0 1px 6px #000;font-size:.85rem}
-#dialogue{position:absolute;left:3%;right:3%;bottom:3%;background:var(--panel);border:1px solid #d1bd8c;border-radius:12px;padding:15px 18px 14px;backdrop-filter:blur(5px);box-shadow:0 8px 28px #0006;min-height:132px}
+#location{position:absolute;left:16px;top:15px;z-index:2;border:1px solid #f2e8cf66;border-radius:99px;background:#17211ebd;color:#f4ead1;padding:7px 12px;font-size:.8rem;letter-spacing:.04em}
+#chapter{position:absolute;right:16px;top:15px;z-index:2;color:#fff4d7;text-shadow:0 1px 6px #000;font-size:.85rem}
+#dialogue{position:absolute;left:3%;right:3%;bottom:3%;z-index:2;background:var(--panel);border:1px solid #d1bd8c;border-radius:12px;padding:15px 18px 14px;backdrop-filter:blur(5px);box-shadow:0 8px 28px #0006;min-height:132px}
 #speaker{display:inline-block;color:#f3d58f;font-weight:700;font-size:.9rem;margin-bottom:6px}
 #text{white-space:pre-line;line-height:1.7;margin:0 0 12px;font-size:clamp(.93rem,1.7vw,1.08rem);min-height:2.2em}
 #actions{display:flex;flex-wrap:wrap;gap:8px}
-#actions button{font:inherit;color:#fff9e9;background:#31493a;border:1px solid #bca877;border-radius:8px;padding:9px 14px;cursor:pointer;transition:.15s}
-#actions button:hover,#actions button:focus-visible{background:#49664f;transform:translateY(-1px);outline:2px solid #f3d58f;outline-offset:2px}
-#actions button.primary{background:#a3723e;border-color:#e0c287}
+.eyelid{position:absolute;left:0;right:0;height:0;z-index:5;pointer-events:none}
+#eye-top{top:0;background:linear-gradient(#07080b 68%,#100d12);border-radius:0 0 50% 50% / 0 0 12% 12%}
+#eye-bottom{bottom:0;background:linear-gradient(0deg,#07080b 68%,#100d12);border-radius:50% 50% 0 0 / 12% 12% 0 0}
+#stage.closing #eye-top{animation:closeTop 1.75s cubic-bezier(.65,0,.8,.25) forwards}
+#stage.closing #eye-bottom{animation:closeBottom 1.75s cubic-bezier(.65,0,.8,.25) forwards}
+#stage.opening #eye-top{height:51%;animation:openTop 1.5s cubic-bezier(.2,.7,.3,1) forwards}
+#stage.opening #eye-bottom{height:51%;animation:openBottom 1.5s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes closeTop{to{height:51%}}@keyframes closeBottom{to{height:51%}}
+@keyframes openTop{to{height:0}}@keyframes openBottom{to{height:0}}
+#stage.hit{animation:hit .38s ease-in-out}#stage.flinch{animation:flinch .26s ease-out}
+@keyframes hit{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}45%{transform:translateX(8px)}70%{transform:translateX(-4px)}}
+@keyframes flinch{0%,100%{filter:brightness(1)}50%{filter:brightness(1.6)}}
+#monk{transition:transform .6s ease,opacity .35s ease}#monk.hidden{opacity:0;display:none}#monk.visible{opacity:1;display:block}
 footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 @media(max-width:620px){body{padding:8px}header{margin-bottom:8px}#dialogue{left:2%;right:2%;bottom:2%;padding:10px 12px;min-height:118px}#text{line-height:1.5;margin-bottom:8px}#actions button{padding:8px 11px;font-size:.9rem}#location,#chapter{top:8px;font-size:.72rem}#location{left:8px}#chapter{right:8px}}
 </style>
 </head>
 <body>
 <main>
-<header><div class="brand"><small>선택형 스토리 어드벤처 · 제1장</small><h1>직지, 선택의 기록</h1></div><button id="restart" type="button">처음부터</button></header>
-<section id="stage" aria-label="게임 장면">
-<div id="location">집 · 밤</div><div id="chapter">제1장</div>
-<svg viewBox="0 0 900 506" role="img" aria-label="집과 고려 시대 절을 배경으로 진행되는 이야기 장면">
+<header><div class="brand"><small>1인칭 선택형 스토리 어드벤처 · 제1장</small><h1>직지, 선택의 기록</h1></div><button id="restart" type="button">처음부터</button></header>
+<section id="stage" aria-label="1인칭 시점으로 진행되는 게임 장면">
+<div id="location">현재 · 침대에 누워서</div><div id="chapter">제1장</div>
+<svg viewBox="0 0 900 506" role="img" aria-label="누워서 바라보는 방과 고려 시대 절의 시야">
 <defs>
-<linearGradient id="room" x2="0" y2="1"><stop stop-color="#8d7960"/><stop offset="1" stop-color="#4b493d"/></linearGradient>
-<linearGradient id="temple" x2="0" y2="1"><stop stop-color="#c9a977"/><stop offset="1" stop-color="#71513b"/></linearGradient>
-<linearGradient id="night" x2="0" y2="1"><stop stop-color="#182738"/><stop offset="1" stop-color="#526174"/></linearGradient>
-<linearGradient id="floor" x2="0" y2="1"><stop stop-color="#9c7045"/><stop offset="1" stop-color="#4f3829"/></linearGradient>
-<linearGradient id="hoodie" x2="0" y2="1"><stop stop-color="#54715d"/><stop offset="1" stop-color="#253c32"/></linearGradient>
-<linearGradient id="robe" x2="0" y2="1"><stop stop-color="#bb684b"/><stop offset="1" stop-color="#713a30"/></linearGradient>
-<filter id="shadow"><feGaussianBlur stdDeviation="8"/></filter>
+<linearGradient id="bedroom" x2="0" y2="1"><stop stop-color="#233249"/><stop offset=".43" stop-color="#687487"/><stop offset="1" stop-color="#9b866a"/></linearGradient>
+<linearGradient id="ceiling" x2="0" y2="1"><stop stop-color="#ddc9a1"/><stop offset="1" stop-color="#947858"/></linearGradient>
+<linearGradient id="templewall" x2="0" y2="1"><stop stop-color="#b99565"/><stop offset=".55" stop-color="#896344"/><stop offset="1" stop-color="#4d382b"/></linearGradient>
+<linearGradient id="blanket" x2="0" y2="1"><stop stop-color="#55707c"/><stop offset="1" stop-color="#263e4c"/></linearGradient>
+<linearGradient id="robe" x2="0" y2="1"><stop stop-color="#c77955"/><stop offset="1" stop-color="#793c31"/></linearGradient>
+<filter id="softshadow"><feGaussianBlur stdDeviation="9"/></filter>
 </defs>
-<!-- present-day bedroom illustration -->
+<!-- Lying-down first-person view of the bedroom -->
 <g id="homeScene">
-<rect width="900" height="506" fill="url(#room)"/><rect y="357" width="900" height="149" fill="url(#floor)"/>
-<path d="M0 359H900M0 409H900M0 463H900" stroke="#392b20" stroke-width="7" opacity=".7"/>
-<rect x="88" y="64" width="226" height="176" rx="4" fill="#3b3025"/><rect x="100" y="76" width="202" height="152" fill="url(#night)"/>
-<circle cx="246" cy="117" r="28" fill="#e6d6a2"/><path d="M100 196Q138 147 169 188T235 171T302 190V228H100Z" fill="#354d57"/>
-<path d="M639 135H808V359H639Z" fill="#45372b"/><path d="M650 147H797V347H650Z" fill="#88704f"/><path d="M655 152H792V340H655Z" fill="#a58b66"/><circle cx="779" cy="245" r="5" fill="#e3c57d"/>
-<path d="M139 350H586V416H139Z" fill="#362a22"/><path d="M126 315H597V372H126Z" fill="#9b7951"/><path d="M140 301H582V346H140Z" fill="#d6c4a2"/>
-<ellipse cx="370" cy="325" rx="134" ry="39" fill="#eee2c7"/><path d="M264 325Q296 275 390 287Q472 297 501 335L479 365H277Z" fill="#80483d"/>
-<!-- a sleeping modern student -->
-<circle cx="341" cy="294" r="28" fill="#e4b998"/><path d="M313 292Q315 255 351 261Q377 266 371 302L360 283L335 296L319 309Z" fill="#282823"/>
-<path d="M361 323Q406 296 467 331L493 355H369Z" fill="#385363"/><path d="M331 323Q356 313 374 327" stroke="#263847" stroke-width="15" stroke-linecap="round"/>
-<path d="M45 333H118" stroke="#ead9af" stroke-width="3" opacity=".5"/><text x="35" y="465" fill="#f2e3c1" font-size="18" font-weight="700">현재 · 집</text>
+<rect width="900" height="506" fill="url(#bedroom)"/>
+<path d="M0 0H900V270Q670 238 450 257Q230 235 0 275Z" fill="url(#ceiling)"/>
+<path d="M0 54Q430 114 900 54M0 121Q430 169 900 121M0 190Q430 219 900 190" fill="none" stroke="#715b42" stroke-width="9" opacity=".75"/>
+<path d="M0 272Q450 235 900 272V377Q450 341 0 377Z" fill="#847459"/>
+<!-- window and moon, seen from the pillow -->
+<path d="M82 116H254V252H82Z" fill="#40362e" stroke="#6f583f" stroke-width="13"/><rect x="94" y="128" width="148" height="112" fill="#24354a"/>
+<circle cx="211" cy="156" r="20" fill="#e8d8ab"/><path d="M95 222Q132 188 160 217T242 211V239H95Z" fill="#47606a"/>
+<path d="M602 155H745V280H602Z" fill="#766248"/><path d="M613 166H734V271H613Z" fill="#5a4937"/><circle cx="718" cy="218" r="4" fill="#e6c87e"/>
+<!-- faint ceiling lamp in the distance -->
+<path d="M445 0V73" stroke="#514735" stroke-width="5"/><path d="M411 70Q450 43 489 70L477 91H423Z" fill="#dfc98e" opacity=".8"/>
+<ellipse cx="450" cy="93" rx="85" ry="25" fill="#f5daa0" opacity=".17" filter="url(#softshadow)"/>
+<!-- blanket at the foot of the first-person view -->
+<path d="M0 362Q180 328 337 365Q526 325 708 366Q822 343 900 361V506H0Z" fill="url(#blanket)"/>
+<path d="M0 390Q204 354 372 392T725 389T900 382M0 454Q188 419 357 451T716 450T900 437" fill="none" stroke="#91a0a0" stroke-width="4" opacity=".48"/>
+<path d="M386 506Q411 417 450 375Q488 420 514 506" fill="#6b8290" opacity=".56"/>
+<path d="M0 0H900V506H0Z" fill="none" stroke="#10151c" stroke-width="45" opacity=".14"/>
 </g>
-<!-- Goryeo temple interior illustration -->
+<!-- First-person view from the temple floor, looking upward -->
 <g id="templeScene" style="display:none">
-<rect width="900" height="506" fill="url(#temple)"/><rect y="347" width="900" height="159" fill="url(#floor)"/>
-<path d="M0 348H900M0 391H900M0 444H900" stroke="#4b3022" stroke-width="7" opacity=".72"/>
-<!-- roof beams, pillars, depth -->
-<path d="M0 36H900M0 87H900" stroke="#71392d" stroke-width="22"/><path d="M73 30V352M826 30V352" stroke="#794333" stroke-width="30"/>
-<path d="M28 34H119L101 12H49ZM781 34H872L851 12H801Z" fill="#a65139"/>
-<path d="M112 104H294V264H112Z" fill="#e8d7b2" stroke="#7d4432" stroke-width="9"/>
-<path d="M157 106V263M203 106V263M249 106V263M113 158H293M113 210H293" stroke="#96513b" stroke-width="5"/>
-<!-- altar/books and hanging scroll -->
-<rect x="656" y="114" width="151" height="201" rx="4" fill="#8e5737" stroke="#633c2c" stroke-width="7"/><rect x="671" y="130" width="121" height="35" fill="#4b3529"/><rect x="671" y="180" width="121" height="35" fill="#4b3529"/><rect x="671" y="230" width="121" height="35" fill="#4b3529"/>
-<g fill="#ddc99d" stroke="#785638" stroke-width="3"><rect x="681" y="121" width="18" height="45" rx="4"/><rect x="708" y="124" width="18" height="42" rx="4"/><rect x="758" y="120" width="18" height="46" rx="4"/><rect x="687" y="171" width="19" height="45" rx="4"/><rect x="739" y="173" width="18" height="43" rx="4"/><rect x="770" y="170" width="16" height="46" rx="4"/><rect x="675" y="220" width="19" height="46" rx="4"/><rect x="718" y="222" width="18" height="45" rx="4"/><rect x="758" y="221" width="18" height="45" rx="4"/></g>
-<path d="M420 109V226" stroke="#8d3e30" stroke-width="5"/><path d="M378 119H462V218H378Z" fill="#e1c99a" stroke="#8d3e30" stroke-width="5"/><text x="395" y="177" fill="#6e3c2d" font-size="25" font-family="serif">直指</text>
-<ellipse cx="451" cy="382" rx="182" ry="32" fill="#261d18" opacity=".34" filter="url(#shadow)"/><path d="M271 370Q450 331 630 370L591 418H308Z" fill="#a87345" stroke="#65432d" stroke-width="6"/><path d="M305 375Q450 346 598 375" stroke="#dfb66d" stroke-width="5" fill="none"/>
-<text x="35" y="465" fill="#f2e3c1" font-size="18" font-weight="700">고려 시대 · 절 안</text>
+<rect width="900" height="506" fill="url(#templewall)"/>
+<!-- roof underside and converging rafters -->
+<path d="M0 0H900V263Q687 226 450 213Q212 227 0 263Z" fill="#634332"/>
+<path d="M0 0L450 244L900 0M0 58L450 269L900 58M0 119L450 291L900 119" fill="none" stroke="#a45e3c" stroke-width="18"/>
+<path d="M0 176L450 312L900 176M0 229L450 332L900 229" fill="none" stroke="#422f25" stroke-width="12"/>
+<path d="M0 271Q450 231 900 271V506H0Z" fill="#97734e"/>
+<!-- view toward the far wall, with lattice windows -->
+<path d="M85 281H342V412H85Z" fill="#dfc79b" stroke="#694534" stroke-width="13"/>
+<path d="M149 284V408M213 283V408M277 283V408M89 324H338M89 367H338" stroke="#89553c" stroke-width="6"/>
+<path d="M555 282H811V413H555Z" fill="#6e4b36" stroke="#503628" stroke-width="12"/>
+<path d="M581 300H785V394H581Z" fill="#bb9663"/>
+<g fill="#e3d0a7" stroke="#704c34" stroke-width="3"><rect x="592" y="296" width="21" height="96" rx="4"/><rect x="623" y="302" width="21" height="90" rx="4"/><rect x="678" y="298" width="21" height="94" rx="4"/><rect x="738" y="300" width="21" height="92" rx="4"/></g>
+<!-- hanging wooden plaque -->
+<path d="M445 0V105" stroke="#553829" stroke-width="7"/><path d="M385 91H515V188H385Z" fill="#d1b47d" stroke="#593a2a" stroke-width="8"/>
+<text x="408" y="151" fill="#613d2b" font-size="29" font-family="serif">直指</text>
+<!-- low-floor perspective and mat at bottom edge -->
+<path d="M0 414Q450 365 900 414V506H0Z" fill="#65472f"/>
+<path d="M0 446Q450 397 900 446M0 480Q450 438 900 480" fill="none" stroke="#b18b58" stroke-width="7" opacity=".7"/>
+<path d="M0 0H900V506H0Z" fill="none" stroke="#120e0b" stroke-width="44" opacity=".2"/>
 </g>
-<!-- protagonist, modern clothes -->
-<g id="hero" class="hidden" transform="translate(315 230)">
-<ellipse cx="62" cy="208" rx="56" ry="13" fill="#241a16" opacity=".5"/>
-<path d="M33 104Q61 83 93 103L111 178L99 205H22L12 174Z" fill="url(#hoodie)" stroke="#1e3028" stroke-width="4"/>
-<path d="M43 107L62 130L81 107" fill="#d8d3c3"/><path d="M58 129H66V178H57Z" fill="#a6473e"/>
-<path d="M20 119L2 168M103 119L123 161" stroke="#e3b99a" stroke-width="17" stroke-linecap="round"/>
-<path d="M31 179L27 209M84 179L91 209" stroke="#32445a" stroke-width="20" stroke-linecap="round"/>
-<path d="M17 213H42M78 213H104" stroke="#ddd7c8" stroke-width="12" stroke-linecap="round"/>
-<ellipse cx="62" cy="67" rx="36" ry="42" fill="#e6b99a" stroke="#9d6d56" stroke-width="2"/>
-<path d="M27 69Q21 24 63 23Q101 24 99 66L88 52Q70 59 44 47L29 75Z" fill="#242622"/>
-<path d="M39 74Q45 78 50 74M74 74Q80 78 85 74" stroke="#3a302b" stroke-width="4" fill="none"/>
-<path d="M55 96Q63 91 72 96" stroke="#9a584d" stroke-width="3" fill="none"/>
-</g>
-<!-- monk appears on branch and shared scene -->
-<g id="monk" class="hidden" transform="translate(650 225)">
-<ellipse cx="55" cy="210" rx="55" ry="12" fill="#241a16" opacity=".5"/>
-<path d="M24 103Q54 83 86 104L106 184L95 207H12L4 176Z" fill="url(#robe)" stroke="#653a2e" stroke-width="4"/>
-<path d="M44 105L58 126L74 105" fill="#e1d0a7"/><path d="M55 124L64 132L60 184H49Z" fill="#d8bd7d"/>
-<path d="M18 121L-2 166M92 120L113 157" stroke="#c99372" stroke-width="16" stroke-linecap="round"/>
-<path d="M28 180L23 210M79 180L87 210" stroke="#544438" stroke-width="20" stroke-linecap="round"/>
-<ellipse cx="56" cy="67" rx="35" ry="41" fill="#d7a681" stroke="#8e5d48" stroke-width="2"/>
-<path d="M22 62Q25 26 57 25Q88 27 91 63L80 51Q55 58 31 48Z" fill="#58483d"/>
-<path d="M35 73H48M66 73H79" stroke="#45332d" stroke-width="4"/><path d="M45 93Q57 88 68 93" stroke="#78463a" stroke-width="3" fill="none"/>
-<g id="broom" class="hidden"><path d="M105 144L150 60" stroke="#684a2e" stroke-width="9" stroke-linecap="round"/><path d="M134 45L164 62L146 84L124 67Z" fill="#caa660" stroke="#684a2e" stroke-width="4"/></g>
+<!-- Monk enters the viewer's field of vision -->
+<g id="monk" class="hidden" transform="translate(674 195)">
+<ellipse cx="71" cy="277" rx="76" ry="14" fill="#201710" opacity=".45"/>
+<path d="M35 142Q70 121 106 142L136 248L118 274H19L3 240Z" fill="url(#robe)" stroke="#683c30" stroke-width="5"/>
+<path d="M54 143L72 166L91 143" fill="#e2cf9f"/><path d="M70 164L81 175L76 247H62Z" fill="#d7b978"/>
+<path d="M27 160L4 222M111 160L137 211" stroke="#d5a17e" stroke-width="20" stroke-linecap="round"/>
+<path d="M42 248L38 278M95 248L103 278" stroke="#4a3b30" stroke-width="22" stroke-linecap="round"/>
+<ellipse cx="71" cy="91" rx="43" ry="50" fill="#dca985" stroke="#895c45" stroke-width="3"/>
+<path d="M29 86Q30 39 71 39Q111 40 113 88L101 74Q72 83 42 69Z" fill="#544438"/>
+<path d="M47 95H60M82 95H95" stroke="#43312a" stroke-width="5"/><path d="M58 119Q71 112 84 119" stroke="#78493b" stroke-width="4" fill="none"/>
+<g id="broom" style="display:none"><path d="M130 194L188 77" stroke="#684a2e" stroke-width="11" stroke-linecap="round"/><path d="M168 58L202 80L182 104L154 81Z" fill="#caa660" stroke="#684a2e" stroke-width="5"/></g>
 </g>
 </svg>
+<div id="eye-top" class="eyelid"></div><div id="eye-bottom" class="eyelid"></div>
 <div id="dialogue"><span id="speaker">당신</span><p id="text"></p><div id="actions"></div></div>
 </section>
 <footer>제1장 · 현재에서 고려 시대로</footer>
 </main>
 <script>
-const q=(s)=>document.querySelector(s),home=q("#homeScene"),temple=q("#templeScene"),hero=q("#hero"),monk=q("#monk"),broom=q("#broom"),speaker=q("#speaker"),text=q("#text"),actions=q("#actions"),locationLabel=q("#location"),stage=q("#stage");
+const q=(s)=>document.querySelector(s),stage=q("#stage"),home=q("#homeScene"),temple=q("#templeScene"),monk=q("#monk"),broom=q("#broom"),speaker=q("#speaker"),text=q("#text"),actions=q("#actions"),locationLabel=q("#location");
 function buttons(items){actions.replaceChildren();for(const item of items){const b=document.createElement("button");b.type="button";b.textContent=item.label;if(item.primary)b.className="primary";b.addEventListener("click",item.run);actions.append(b)}}
-function scene(place){const isTemple=place==="temple";home.style.display=isTemple?"none":"";temple.style.display=isTemple?"":"none";locationLabel.textContent=isTemple?"고려 시대 · 절 안":"현재 · 집"}
-function dialogue(name,line,items){speaker.textContent=name;text.textContent=line;buttons(items);stage.classList.remove("scene-change");void stage.offsetWidth;stage.classList.add("scene-change")}
-function reset(){scene("home");hero.setAttribute("class","hidden");hero.style.opacity="1";monk.setAttribute("class","hidden");monk.setAttribute("transform","translate(650 225)");broom.setAttribute("class","hidden");dialogue("당신","집에 돌아온 당신은 침대에 누우며 말했습니다.\n“이제 좀 자야겠다.”",[{label:"잠든다",primary:true,run:wake}])}
-function wake(){scene("temple");hero.setAttribute("class","visible");dialogue("당신","눈을 떠 보니 고려 시대의 절이었습니다.\n“여긴 어디지?” 어리둥절한 당신은 주위를 살폈습니다.",[{label:"주변을 둘러본다",primary:true,run:look},{label:"다시 잔다",run:sleep}])}
-function look(){dialogue("당신","주변을 둘러보다가 누군가 머리를 툭 쳤습니다.\n“아야!” 아픈 머리를 감싸고 옆을 돌아봤습니다.",[{label:"옆을 본다",primary:true,run:meet}])}
-function sleep(){hero.style.opacity=".55";monk.setAttribute("class","visible");broom.setAttribute("class","");dialogue("당신","다시 잠을 청하려는 순간, 스님이 빗자루로 당신을 때렸습니다!",[{label:"아야! 누구야?!!",primary:true,run:turnAfterBroom}])}
-function turnAfterBroom(){hero.style.opacity="1";dialogue("당신","“누구야?!!” 소리치며 옆을 돌아봤습니다.",[{label:"옆을 본다",primary:true,run:meet}])}
-function meet(){hero.style.opacity="1";monk.setAttribute("class","visible");monk.setAttribute("transform","translate(520 225)");broom.setAttribute("class","hidden");dialogue("스님","옆을 보니 스님이 서 있었습니다.\n“여기서 뭐 하는 게냐?” 스님이 가까이 다가오자, 깜짝 놀란 당신은 비명을 질렀습니다.",[{label:"제1장 다시 보기",primary:true,run:reset}])}
+function setScene(place){const isTemple=place==="temple";home.style.display=isTemple?"none":"";temple.style.display=isTemple?"":"none";locationLabel.textContent=isTemple?"고려 시대 · 절 안":"현재 · 침대에 누워서"}
+function dialogue(name,line,items=[]){speaker.textContent=name;text.textContent=line;buttons(items)}
+function closeEyes(done){stage.classList.remove("opening");void stage.offsetWidth;stage.classList.add("closing");setTimeout(()=>{stage.classList.remove("closing");if(done)done()},1750)}
+function openEyes(done){stage.classList.remove("closing");void stage.offsetWidth;stage.classList.add("opening");setTimeout(()=>{stage.classList.remove("opening");if(done)done()},1500)}
+function reset(){stage.classList.remove("closing","opening","hit","flinch");setScene("home");monk.setAttribute("class","hidden");monk.setAttribute("transform","translate(674 195)");broom.style.display="none";dialogue("당신","집에 돌아와 침대에 누웠습니다.\n“이제 좀 자야겠다.”",[{label:"잠든다",primary:true,run:sleepToTemple}])}
+function sleepToTemple(){dialogue("당신","눈꺼풀이 천천히 내려옵니다. 방 안의 불빛이 흐려지고, 당신은 잠에 빠져듭니다.");closeEyes(()=>{setScene("temple");monk.setAttribute("class","hidden");openEyes(()=>showWake())})}
+function showWake(){dialogue("당신","눈을 떠 보니 고려 시대의 절이었습니다.\n“여긴 어디지?” 어리둥절한 당신은 주위를 살폈습니다.",[{label:"주변을 둘러본다",primary:true,run:look},{label:"다시 잔다",run:dozeAgain}])}
+function look(){monk.style.display="";monk.setAttribute("class","visible");monk.setAttribute("transform","translate(685 197)");stage.classList.remove("hit");void stage.offsetWidth;stage.classList.add("hit");dialogue("당신","절 안을 둘러보던 순간, 누군가 머리를 툭 쳤습니다.\n“아야!” 아픈 머리를 감싸고 옆을 돌아봤습니다.",[{label:"옆을 돌아본다",primary:true,run:meetMonk}])}
+function dozeAgain(){dialogue("당신","다시 잠을 청하려고 눈을 감았습니다.");closeEyes(()=>{monk.setAttribute("class","visible");monk.setAttribute("transform","translate(685 197)");broom.style.display="";openEyes(()=>dialogue("당신","갑자기 스님이 빗자루로 당신을 때렸습니다!\n“아야! 누구야?!!”",[{label:"소리가 난 쪽을 본다",primary:true,run:meetMonk}]))})}
+function meetMonk(){broom.style.display="none";monk.setAttribute("transform","translate(530 197)");dialogue("스님","스님이 가까이 다가오며 물었습니다.\n“여기서 뭐 하는 게냐?”",[{label:"깜짝 놀라 비명을 지른다",primary:true,run:scream}])}
+function scream(){stage.classList.remove("flinch");void stage.offsetWidth;stage.classList.add("flinch");dialogue("당신","“아아악!” 갑자기 다가온 스님에 놀라 비명을 질렀습니다.",[{label:"제1장 다시 보기",primary:true,run:reset}])}
 q("#restart").addEventListener("click",reset);reset();
 </script>
 </body>
