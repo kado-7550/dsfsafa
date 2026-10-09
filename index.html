@@ -3,44 +3,128 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>직지, 선택의 기록</title>
+<title>직지, 선택의 기록 - 제1장</title>
 <style>
-:root{color-scheme:light;--ink:#253329;--muted:#6d756a;--paper:#f4edda;--card:#fffaf0;--green:#315b45;--gold:#bd8a3a}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#fff9e9 0,#e8dcc0 70%);color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;display:grid;place-items:center;padding:24px}
-main{width:min(760px,100%);background:var(--card);border:1px solid #d9c9a7;border-radius:20px;box-shadow:0 18px 55px #46391d20;overflow:hidden}
-header{padding:30px 34px 24px;background:var(--green);color:#fff9e9}
-.kicker{font-size:.82rem;letter-spacing:.16em;color:#e9cc91}h1{font-family:Georgia,"Batang",serif;font-size:clamp(2rem,7vw,3.2rem);margin:9px 0 5px}header p{margin:0;color:#e9eadf}
-.progress{height:5px;background:#d9ceb7}.progress span{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
-section{padding:34px;min-height:310px}.chapter{color:#99743d;font-weight:700;font-size:.9rem}h2{font-size:1.5rem;margin:10px 0 16px}.story{font-size:1.08rem;line-height:1.9;white-space:pre-line;color:#394238;min-height:94px}
-.choices{display:grid;gap:10px;margin-top:24px}.choices button,.restart{border:1px solid #d3c4a5;background:#fffdf7;color:var(--ink);padding:14px 16px;border-radius:12px;text-align:left;font:inherit;cursor:pointer;transition:.15s}
-.choices button:hover,.choices button:focus-visible{border-color:var(--green);background:#eef3e9;transform:translateY(-1px);outline:none}
-footer{padding:0 34px 26px;color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;gap:12px;align-items:center}
-.restart{padding:9px 13px;font-size:.9rem;color:var(--green);border-color:#b6c3b2}
-@media(max-width:520px){body{padding:12px}header,section{padding:24px}footer{padding:0 24px 22px}section{min-height:340px}}
+:root{color-scheme:light;--ink:#26352c;--green:#315b45;--gold:#c1934d;--paper:#f7f0df;--card:#fffaf0}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#fff9e9,#e6dbc3 78%);color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;display:grid;place-items:center;padding:22px}
+main{width:min(1000px,100%);background:var(--card);border:1px solid #d9c9a7;border-radius:20px;box-shadow:0 18px 55px #46391d20;overflow:hidden}
+header{padding:20px 28px;background:var(--green);color:#fff9e9;display:flex;justify-content:space-between;align-items:center;gap:16px}
+header .kicker{color:#e9cc91;font-size:.8rem;letter-spacing:.12em}h1{font:700 clamp(1.5rem,4vw,2.2rem) Georgia,"Batang",serif;margin:5px 0}header p{margin:0;color:#e9eadf;font-size:.95rem}.chapter-badge{border:1px solid #ffffff50;border-radius:999px;padding:8px 13px;white-space:nowrap;font-size:.84rem}
+.game{padding:22px 26px 26px}.scene-wrap{position:relative;overflow:hidden;border:1px solid #cdbb94;border-radius:15px;background:#d7c5a0;box-shadow:inset 0 0 40px #392b1615}
+svg{display:block;width:100%;height:auto;min-height:260px}
+#hero{transition:transform .18s ease-out}#monk{transition:transform .4s ease-out,opacity .3s}#monk.hidden{opacity:0;pointer-events:none}#monk.visible{opacity:1}
+.scene-wrap.shake{animation:shake .42s ease-in-out}.scene-wrap.fade{animation:fade .8s ease-in-out}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+@keyframes fade{0%,100%{filter:brightness(1)}50%{filter:brightness(.1)}}
+.dialogue{position:relative;margin-top:14px;background:#fffdf8;border:1px solid #d9c9a7;border-radius:13px;padding:16px 18px;min-height:82px;line-height:1.7;box-shadow:0 5px 15px #392b160b}
+.speaker{display:block;font-size:.82rem;color:#99743d;font-weight:700;margin-bottom:4px}.message{margin:0;font-size:1.02rem}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px}
+button{font:inherit;cursor:pointer;border:1px solid #cdbb94;background:#fffdf7;color:var(--ink);border-radius:10px;padding:11px 15px;transition:background .14s,border-color .14s,transform .14s}
+button:hover,button:focus-visible{border-color:var(--green);background:#eef3e9;transform:translateY(-1px);outline:none}
+button.primary{background:var(--green);color:white;border-color:var(--green)}button.primary:hover{background:#244735}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.game-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-top:14px}
+.hint{margin:0;color:#72786d;font-size:.86rem;line-height:1.6}
+.dpad{display:grid;grid-template-columns:repeat(3,42px);grid-template-rows:repeat(2,38px);gap:4px;flex:none}
+.dpad button{padding:0;border-radius:8px;font-size:1.1rem}.dpad .up{grid-column:2}.dpad .left{grid-column:1;grid-row:2}.dpad .down{grid-column:2;grid-row:2}.dpad .right{grid-column:3;grid-row:2}
+#scene-note{position:absolute;top:12px;left:12px;border-radius:999px;background:#1e2b22c9;color:white;padding:7px 11px;font-size:.78rem}
+.restart{font-size:.9rem;color:var(--green);padding:8px 12px}
+@media(max-width:600px){body{padding:9px}.game{padding:12px}.scene-wrap{border-radius:10px}header{padding:16px;align-items:flex-start}.chapter-badge{font-size:.72rem;padding:7px 9px}.game-bottom{align-items:center}.hint{font-size:.78rem}.dpad{grid-template-columns:repeat(3,36px);grid-template-rows:repeat(2,34px)}.dialogue{padding:13px}.message{font-size:.95rem}}
 </style>
 </head>
 <body>
 <main>
-<header><div class="kicker">역사 선택 게임 · 제1장</div><h1>직지, 선택의 기록</h1><p>현재에서 고려 시대로 넘어온 당신의 이야기</p></header>
-<div class="progress" aria-label="이야기 진행"><span id="progress"></span></div>
-<section aria-live="polite">
-<div class="chapter" id="chapter"></div><h2 id="title"></h2><p class="story" id="story"></p><div class="choices" id="choices"></div>
-</section>
-<footer><span id="step">이야기를 시작해 보세요.</span><button class="restart" id="restart" type="button">처음부터</button></footer>
+<header><div><div class="kicker">선택형 2D 웹 게임</div><h1>직지, 선택의 기록</h1><p>현재에서 고려 시대로 넘어온 당신의 이야기</p></div><span class="chapter-badge">제1장 · 낯선 절</span></header>
+<div class="game">
+<div class="scene-wrap" id="scene-wrap">
+<div id="scene-note">집 · 밤</div>
+<svg viewBox="0 0 900 430" role="img" aria-label="장면 배경과 캐릭터가 그려진 게임 화면">
+<defs>
+<linearGradient id="homewall" x2="0" y2="1"><stop stop-color="#d8c9a8"/><stop offset="1" stop-color="#b89c72"/></linearGradient>
+<linearGradient id="templewall" x2="0" y2="1"><stop stop-color="#e9d9b2"/><stop offset="1" stop-color="#d4bd8e"/></linearGradient>
+<linearGradient id="floor" x2="0" y2="1"><stop stop-color="#967345"/><stop offset="1" stop-color="#674a2b"/></linearGradient>
+<linearGradient id="robe" x2="0" y2="1"><stop stop-color="#6f8b64"/><stop offset="1" stop-color="#3e5b45"/></linearGradient>
+<linearGradient id="monkrobe" x2="0" y2="1"><stop stop-color="#cf704d"/><stop offset="1" stop-color="#914a35"/></linearGradient>
+</defs>
+<!-- home -->
+<g id="home-bg">
+<rect width="900" height="430" fill="url(#homewall)"/><rect y="318" width="900" height="112" fill="url(#floor)"/>
+<path d="M0 317H900M0 350H900M0 390H900" stroke="#4f3924" stroke-width="5" opacity=".6"/>
+<rect x="75" y="55" width="220" height="165" rx="5" fill="#72583b"/><rect x="86" y="66" width="198" height="144" fill="#26394b"/>
+<circle cx="240" cy="101" r="23" fill="#f5dda2"/><path d="M90 180Q140 125 175 174T280 161V208H90Z" fill="#49646a"/>
+<path d="M185 275H570V351H185Z" fill="#77583a"/><path d="M175 263H580V294H175Z" fill="#ba9b6d"/><rect x="205" y="240" width="145" height="36" rx="16" fill="#eee0c2"/>
+<path d="M0 300H900" stroke="#4f3924" stroke-width="9"/>
+<rect x="735" y="102" width="90" height="214" fill="#785a37"/><path d="M745 115H815V300H745Z" fill="#a88658"/><circle cx="798" cy="207" r="4" fill="#efdbad"/>
+<rect x="648" y="261" width="42" height="60" rx="5" fill="#e7c86f"/><path d="M661 260Q668 238 678 260" fill="none" stroke="#e7c86f" stroke-width="5"/>
+<!-- sleeper -->
+<g id="sleeper"><ellipse cx="416" cy="291" rx="120" ry="41" fill="#ead8b4"/><path d="M306 293Q322 254 400 257Q496 260 531 296L515 320H316Z" fill="#b34e43"/><circle cx="386" cy="265" r="24" fill="#f1c49d"/><path d="M361 262Q367 230 399 244Q416 251 410 270L402 260L376 270Z" fill="#33322e"/><path d="M398 278Q425 263 459 284" fill="none" stroke="#9d3f38" stroke-width="7"/></g>
+<text x="36" y="390" fill="#f6e7c4" font-size="17" font-weight="700">집 · 밤</text>
+</g>
+<!-- temple -->
+<g id="temple-bg" style="display:none">
+<rect width="900" height="430" fill="url(#templewall)"/><rect y="302" width="900" height="128" fill="url(#floor)"/>
+<path d="M0 302H900M0 342H900M0 385H900" stroke="#4c3622" stroke-width="6" opacity=".65"/>
+<!-- beams and pillars -->
+<path d="M0 40H900M0 83H900" stroke="#873f2f" stroke-width="18"/><path d="M70 35V305M830 35V305" stroke="#873f2f" stroke-width="28"/>
+<path d="M39 35H112L96 14H54ZM795 35H868L852 14H811Z" fill="#a84d38"/>
+<!-- lattice window -->
+<rect x="105" y="108" width="170" height="126" fill="#e9e0c9" stroke="#874936" stroke-width="8"/>
+<path d="M148 108V234M190 108V234M232 108V234M105 150H275M105 192H275" stroke="#9d5b43" stroke-width="5"/>
+<!-- alcove and scrolls -->
+<rect x="645" y="111" width="142" height="155" rx="4" fill="#b9945e" stroke="#8a4b34" stroke-width="7"/>
+<rect x="660" y="129" width="112" height="22" fill="#63412b"/><rect x="660" y="165" width="112" height="22" fill="#63412b"/><rect x="660" y="201" width="112" height="22" fill="#63412b"/>
+<g fill="#d8bf8c" stroke="#715333" stroke-width="2"><rect x="670" y="119" width="15" height="33" rx="3"/><rect x="690" y="116" width="16" height="36" rx="3"/><rect x="722" y="120" width="17" height="32" rx="3"/><rect x="673" y="154" width="17" height="34" rx="3"/><rect x="703" y="155" width="16" height="33" rx="3"/><rect x="744" y="154" width="15" height="34" rx="3"/><rect x="681" y="190" width="16" height="34" rx="3"/><rect x="720" y="191" width="16" height="33" rx="3"/></g>
+<!-- floor cushions -->
+<ellipse cx="420" cy="352" rx="170" ry="28" fill="#543e2c" opacity=".35"/><path d="M263 346Q420 313 577 346L550 377H287Z" fill="#b37b47" stroke="#75502f" stroke-width="5"/><path d="M293 348Q420 325 548 348" fill="none" stroke="#dfb16a" stroke-width="5"/>
+<text x="36" y="390" fill="#f6e7c4" font-size="17" font-weight="700">고려 시대 · 절 안</text>
+</g>
+<!-- avatar and monk use geometric character art -->
+<g id="hero" transform="translate(405 178)">
+<ellipse cx="45" cy="162" rx="42" ry="11" fill="#46321f" opacity=".35"/>
+<path d="M17 91Q45 75 73 91L84 147H7Z" fill="url(#robe)" stroke="#304533" stroke-width="3"/>
+<path d="M31 92L45 109L58 91" fill="#eadfbd"/><path d="M42 105H48L52 147H39Z" fill="#b34e43"/>
+<path d="M17 108L0 139M73 108L91 132" stroke="#e9bd91" stroke-width="12" stroke-linecap="round"/>
+<path d="M25 145L20 170M64 145L70 170" stroke="#283b35" stroke-width="13" stroke-linecap="round"/>
+<ellipse cx="45" cy="62" rx="29" ry="34" fill="#efc19a"/><path d="M17 61Q13 24 46 25Q76 27 74 59L67 47Q53 54 35 44L20 61Z" fill="#33322e"/>
+<circle cx="35" cy="65" r="2.5" fill="#332d2a"/><circle cx="55" cy="65" r="2.5" fill="#332d2a"/><path d="M37 79Q45 85 54 78" fill="none" stroke="#9e584a" stroke-width="2.5"/>
+</g>
+<g id="monk" class="hidden" transform="translate(650 177)">
+<ellipse cx="43" cy="164" rx="45" ry="10" fill="#46321f" opacity=".35"/>
+<path d="M12 91Q43 76 75 91L89 153H-1Z" fill="url(#monkrobe)" stroke="#693c2d" stroke-width="3"/>
+<path d="M39 91L47 108L56 91" fill="#e0c99a"/><path d="M39 100L51 106L45 147H35Z" fill="#d6bd83"/>
+<path d="M17 106L-3 128M72 106L91 128" stroke="#c38e6d" stroke-width="12" stroke-linecap="round"/>
+<path d="M24 149L20 171M65 149L71 171" stroke="#453c32" stroke-width="14" stroke-linecap="round"/>
+<ellipse cx="44" cy="62" rx="28" ry="33" fill="#d6a47d"/><path d="M17 59Q17 28 44 28Q72 29 72 59L64 49Q44 54 23 47Z" fill="#55463b"/>
+<circle cx="34" cy="64" r="2.6" fill="#2d2926"/><circle cx="54" cy="64" r="2.6" fill="#2d2926"/><path d="M34 78Q44 73 55 78" fill="none" stroke="#6d4035" stroke-width="2.5"/>
+<g id="broom"><path d="M86 116L132 39" stroke="#76502e" stroke-width="7" stroke-linecap="round"/><path d="M119 24L145 42L128 55L108 39Z" fill="#cba65e" stroke="#76502e" stroke-width="3"/></g>
+</g>
+</svg>
+</div>
+<div class="dialogue"><span class="speaker" id="speaker">이야기</span><p class="message" id="message"></p></div>
+<div class="actions" id="actions"></div>
+<div class="game-bottom"><p class="hint" id="hint">화면 아래 선택지를 눌러 이야기를 진행하세요.</p><div class="dpad" aria-label="이동 조작">
+<button class="up" data-move="up" aria-label="위로 이동">▲</button><button class="left" data-move="left" aria-label="왼쪽 이동">◀</button><button class="down" data-move="down" aria-label="아래로 이동">▼</button><button class="right" data-move="right" aria-label="오른쪽 이동">▶</button></div></div>
+</div>
 </main>
 <script>
-const scenes={
-start:{chapter:"제1장 · 낯선 곳에서 눈을 뜨다",title:"여긴 어디지?",text:"집에 돌아온 당신은 침대에 누우며 말했습니다. “이제 좀 자야겠다.”\n\n잠이 든 뒤 눈을 떠 보니, 눈앞에는 고려 시대의 절이 펼쳐져 있었습니다. 낯선 풍경에 놀란 당신은 “여긴 어디지?”라고 중얼거리며 주위를 살폈습니다.",choices:[["주변을 둘러본다","look"],["다시 잔다","sleep"]]},
-look:{chapter:"제1장 · 주변을 둘러본다",title:"아야!",text:"주변을 둘러보던 순간, 누군가가 당신의 머리를 툭 쳤습니다. “아야!” 아픈 머리를 감싸 쥔 당신은 놀라서 옆을 돌아보려 합니다.",choices:[["아픈 머리를 감싸고 옆을 본다","monk"]]},
-sleep:{chapter:"제1장 · 다시 잔다",title:"누구야?!!",text:"“꿈이겠지. 다시 자야겠다.” 눈을 감은 순간, 누군가가 빗자루로 당신을 때렸습니다. “아야! 누구야?!!” 놀란 당신은 소리가 난 쪽을 돌아보려 합니다.",choices:[["소리가 난 쪽을 돌아본다","monk"]]},
-monk:{chapter:"제1장 · 두 선택이 만나는 장면",title:"스님과 마주치다",text:"옆을 돌아보니 스님이 서 있었습니다. 스님은 “여기서 뭐 하는 게냐?”라고 말하며 가까이 다가왔습니다. 갑자기 다가오는 모습에 깜짝 놀란 당신은 비명을 질렀습니다.",ending:"제1장 — 스님과 마주친 순간"}
-};
-let current="start",count=0;
-const chapter=document.querySelector("#chapter"),title=document.querySelector("#title"),story=document.querySelector("#story"),choices=document.querySelector("#choices"),step=document.querySelector("#step"),progress=document.querySelector("#progress");
-function show(id){current=id;const s=scenes[id];chapter.textContent=s.chapter;title.textContent=s.title;story.textContent=s.text;choices.replaceChildren();if(s.ending){const done=document.createElement("p");done.textContent="— "+s.ending+" —";done.style.color="#315b45";done.style.fontWeight="700";choices.append(done);step.textContent="제1장 이야기는 여기까지예요. 다음 내용을 이어 붙일 수 있어요.";progress.style.width="100%";return}
-s.choices.forEach(([label,next])=>{const b=document.createElement("button");b.type="button";b.textContent=label;b.addEventListener("click",()=>{count++;step.textContent=count+"번 선택했어요.";progress.style.width=Math.min(25+count*25,90)+"%";show(next)});choices.append(b)})}
-document.querySelector("#restart").addEventListener("click",()=>{count=0;progress.style.width="0";show("start");step.textContent="첫 장을 펼쳐 보세요."});
-show("start");
+const el=(s)=>document.querySelector(s);
+const wrap=el("#scene-wrap"),homeBg=el("#home-bg"),templeBg=el("#temple-bg"),hero=el("#hero"),monk=el("#monk"),broom=el("#broom");
+const message=el("#message"),speaker=el("#speaker"),actions=el("#actions"),hint=el("#hint"),sceneNote=el("#scene-note");
+let mode="home",heroX=405,heroY=178,moveCount=0;
+function say(who,text){speaker.textContent=who;message.textContent=text}
+function button(label,action,primary=false){const b=document.createElement("button");b.type="button";b.textContent=label;if(primary)b.className="primary";b.addEventListener("click",action);actions.append(b)}
+function clearActions(){actions.replaceChildren()}
+function start(){mode="home";moveCount=0;heroX=405;heroY=178;hero.setAttribute("transform","translate(405 178)");homeBg.style.display="";templeBg.style.display="none";monk.setAttribute("class","hidden");broom.style.display="none";sceneNote.textContent="집 · 밤";say("당신","집에 돌아온 당신은 “이제 좀 자야겠다.”라고 말하고 잠이 듭니다.");hint.textContent="잠이 들면 이야기가 고려 시대로 이어집니다.";clearActions();button("잠든다",wake,true);button("처음부터",start)}
+function wake(){mode="wake";homeBg.style.display="none";templeBg.style.display="";sceneNote.textContent="고려 시대 · 절 안";heroX=405;heroY=178;hero.setAttribute("transform","translate(405 178)");say("당신","눈을 떠 보니 고려 시대의 절입니다. “여긴 어디지?” 두리번거리며 주변을 살핍니다.");hint.textContent="두 가지 행동 중 하나를 골라 보세요.";clearActions();button("주변을 둘러본다",explore,true);button("다시 잔다",sleep)}
+function explore(){mode="explore";moveCount=0;say("당신","자리에서 일어나 절 안을 둘러봅니다. 방향키나 아래 이동 버튼으로 걸어 다녀 보세요.");hint.textContent="방향키 또는 화면의 화살표로 이동한 뒤, 둘러보기를 마치세요.";clearActions();button("둘러보기를 마친다",bonk,true)}
+function move(direction){if(mode!=="explore")return;let x=heroX,y=heroY;const step=22;if(direction==="left")x-=step;if(direction==="right")x+=step;if(direction==="up")y-=step;if(direction==="down")y+=step;heroX=Math.max(165,Math.min(700,x));heroY=Math.max(128,Math.min(230,y));hero.setAttribute("transform",`translate(${heroX} ${heroY})`);moveCount++;if(moveCount===1)hint.textContent="절 안을 둘러보고 있어요. 조금 더 움직이거나 ‘둘러보기를 마친다’를 누르세요."}
+function bonk(){if(mode!=="explore")return;mode="bonk";monk.setAttribute("class","visible");monk.setAttribute("transform","translate(625 177)");wrap.classList.remove("shake");void wrap.offsetWidth;wrap.classList.add("shake");say("당신","주변을 둘러보던 순간, 스님이 머리를 툭 쳤습니다. “아야!” 아픈 머리를 감싸고 옆을 돌아봅니다.");hint.textContent="두 선택 모두 이제 스님과 만나는 장면으로 이어집니다.";clearActions();button("옆을 돌아본다",meetMonk,true)}
+function sleep(){mode="sleep";hero.style.opacity=".65";monk.setAttribute("class","visible");monk.setAttribute("transform","translate(650 177)");broom.style.display="";say("당신","다시 눈을 감고 잠을 청합니다. 그때 스님이 빗자루로 당신을 때립니다!");hint.textContent="빗자루에 맞았습니다.";clearActions();button("아야! 누구야?!!",wakeAfterBroom,true)}
+function wakeAfterBroom(){hero.style.opacity="1";mode="broom";say("당신","“아야! 누구야?!!” 놀란 당신은 소리가 난 쪽을 돌아봅니다.");hint.textContent="주변을 둘러본 경우와 같은 장면으로 이어집니다.";clearActions();button("옆을 본다",meetMonk,true)}
+function meetMonk(){mode="end";broom.style.display="none";monk.setAttribute("transform","translate(535 177)");heroX=365;hero.setAttribute("transform","translate(365 178)");say("스님","옆을 보니 스님이 서 있습니다. “여기서 뭐 하는 게냐?” 스님이 가까이 다가오자 깜짝 놀란 당신은 비명을 질렀습니다.");hint.textContent="제1장 이야기는 여기까지예요. 다음 내용을 이어 붙일 수 있어요.";clearActions();button("처음부터 다시 하기",start,true)}
+document.querySelectorAll("[data-move]").forEach(b=>b.addEventListener("click",()=>move(b.dataset.move)));
+window.addEventListener("keydown",e=>{const keys={ArrowLeft:"left",a:"left",ArrowRight:"right",d:"right",ArrowUp:"up",w:"up",ArrowDown:"down",s:"down"};if(keys[e.key]){e.preventDefault();move(keys[e.key])}});
+start();
 </script>
 </body>
 </html>
