@@ -49,8 +49,14 @@ footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 <linearGradient id="ceiling" x2="0" y2="1"><stop stop-color="#ddc9a1"/><stop offset="1" stop-color="#947858"/></linearGradient>
 <linearGradient id="templewall" x2="0" y2="1"><stop stop-color="#b99565"/><stop offset=".55" stop-color="#896344"/><stop offset="1" stop-color="#4d382b"/></linearGradient>
 <linearGradient id="blanket" x2="0" y2="1"><stop stop-color="#55707c"/><stop offset="1" stop-color="#263e4c"/></linearGradient>
-<linearGradient id="robe" x2="0" y2="1"><stop stop-color="#c77955"/><stop offset="1" stop-color="#793c31"/></linearGradient>
+<linearGradient id="robe" x2="0" y2="1"><stop stop-color="#d08a63"/><stop offset=".5" stop-color="#a95f46"/><stop offset="1" stop-color="#65352d"/></linearGradient>\n<linearGradient id="skin" x2=".8" y2="1"><stop stop-color="#f0c19a"/><stop offset=".55" stop-color="#dca985"/><stop offset="1" stop-color="#a8755d"/></linearGradient>
 <filter id="softshadow"><feGaussianBlur stdDeviation="9"/></filter>
+<radialGradient id="moonGlow"><stop stop-color="#f6e7bf" stop-opacity=".48"/><stop offset="1" stop-color="#f6e7bf" stop-opacity="0"/></radialGradient>
+<radialGradient id="lampGlow"><stop stop-color="#ffe0a0" stop-opacity=".6"/><stop offset="1" stop-color="#ffe0a0" stop-opacity="0"/></radialGradient>
+<radialGradient id="vignette"><stop offset=".56" stop-color="#080a11" stop-opacity="0"/><stop offset="1" stop-color="#080a11" stop-opacity=".38"/></radialGradient>
+<pattern id="plasterTexture" width="68" height="55" patternUnits="userSpaceOnUse"><path d="M4 12l11-3m18 28l12-2M55 11l7 2M20 49l5-2" stroke="#eee0c0" stroke-width="2" opacity=".32"/></pattern>
+<pattern id="woodGrain" width="70" height="34" patternUnits="userSpaceOnUse"><rect width="70" height="34" fill="#684b34"/><path d="M0 8Q18 2 34 9T70 7M0 23Q17 18 39 24T70 21" fill="none" stroke="#9c774c" stroke-width="2" opacity=".65"/></pattern>
+<pattern id="clothTexture" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M0 4H26M0 17H26" stroke="#d0d6d2" stroke-width="1" opacity=".2"/></pattern>
 </defs>
 <!-- Lying-down first-person view of the bedroom -->
 <g id="homeScene">
@@ -97,10 +103,12 @@ footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 <g id="monk" class="hidden" transform="translate(674 195)">
 <ellipse cx="71" cy="277" rx="76" ry="14" fill="#201710" opacity=".45"/>
 <path d="M35 142Q70 121 106 142L136 248L118 274H19L3 240Z" fill="url(#robe)" stroke="#683c30" stroke-width="5"/>
+<path d="M35 153Q57 177 45 223M111 151Q89 181 105 231M21 232Q67 248 120 231M54 169Q70 190 64 235" fill="none" stroke="#e0a27b" stroke-width="4" opacity=".35"/>
+<path d="M25 244Q70 258 126 242" fill="none" stroke="#4e3028" stroke-width="8" opacity=".75"/>
 <path d="M54 143L72 166L91 143" fill="#e2cf9f"/><path d="M70 164L81 175L76 247H62Z" fill="#d7b978"/>
 <path d="M27 160L4 222M111 160L137 211" stroke="#d5a17e" stroke-width="20" stroke-linecap="round"/>
 <path d="M42 248L38 278M95 248L103 278" stroke="#4a3b30" stroke-width="22" stroke-linecap="round"/>
-<ellipse cx="71" cy="91" rx="43" ry="50" fill="#dca985" stroke="#895c45" stroke-width="3"/>
+<ellipse cx="71" cy="91" rx="43" ry="50" fill="url(#skin)" stroke="#895c45" stroke-width="3"/>
 <path d="M29 86Q30 39 71 39Q111 40 113 88L101 74Q72 83 42 69Z" fill="#544438"/>
 <path d="M47 95H60M82 95H95" stroke="#43312a" stroke-width="5"/><path d="M58 119Q71 112 84 119" stroke="#78493b" stroke-width="4" fill="none"/>
 <g id="broom" style="display:none"><path d="M130 194L188 77" stroke="#684a2e" stroke-width="11" stroke-linecap="round"/><path d="M168 58L202 80L182 104L154 81Z" fill="#caa660" stroke="#684a2e" stroke-width="5"/></g>
