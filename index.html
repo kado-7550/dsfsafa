@@ -33,14 +33,21 @@ svg{display:block;width:100%;height:auto;aspect-ratio:900/506}
 #stage.hit{animation:hit .38s ease-in-out}#stage.flinch{animation:flinch .26s ease-out}
 @keyframes hit{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}45%{transform:translateX(8px)}70%{transform:translateX(-4px)}}
 @keyframes flinch{0%,100%{filter:brightness(1)}50%{filter:brightness(1.6)}}
-#monk{transition:transform .6s ease,opacity .35s ease}#monk.hidden{opacity:0;display:none}#monk.visible{opacity:1;display:block}
+#monk{transition:opacity .35s ease}#monk.hidden{opacity:0;display:none}#monk.visible{opacity:1;display:block}
+#world{transform-origin:450px 253px}
+#handStrike,#broomStrike{pointer-events:none}
+#stage.impact{animation:impact .48s cubic-bezier(.2,.8,.25,1)}
+@keyframes impact{0%,100%{transform:translate(0,0);filter:brightness(1)}12%{transform:translate(-13px,8px);filter:brightness(1.65)}30%{transform:translate(10px,-5px)}48%{transform:translate(-7px,3px)}68%{transform:translate(4px,0)}}
+#stage.scan #world{filter:saturate(1.06)}
+@media(prefers-reduced-motion:reduce){#stage.impact{animation-duration:.18s}}
+
 footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 @media(max-width:620px){body{padding:8px}header{margin-bottom:8px}#dialogue{left:2%;right:2%;bottom:2%;padding:10px 12px;min-height:118px}#text{line-height:1.5;margin-bottom:8px}#actions button{padding:8px 11px;font-size:.9rem}#location,#chapter{top:8px;font-size:.72rem}#location{left:8px}#chapter{right:8px}}
 </style>
 </head>
 <body>
 <main>
-<header><div class="brand"><small>1인칭 선택형 스토리 어드벤처 · 제1장</small><h1>직지, 선택의 기록</h1></div><button id="restart" type="button">처음부터</button></header>
+<header><div class="brand"><small>1인칭 컷신 어드벤처 · 제1장</small><h1>직지, 선택의 기록</h1></div><button id="restart" type="button">처음부터</button></header>
 <section id="stage" aria-label="1인칭 시점으로 진행되는 게임 장면">
 <div id="location">현재 · 침대에 누워서</div><div id="chapter">제1장</div>
 <svg viewBox="0 0 900 506" role="img" aria-label="누워서 바라보는 방과 고려 시대 절의 시야">
@@ -58,6 +65,7 @@ footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 <pattern id="woodGrain" width="70" height="34" patternUnits="userSpaceOnUse"><rect width="70" height="34" fill="#684b34"/><path d="M0 8Q18 2 34 9T70 7M0 23Q17 18 39 24T70 21" fill="none" stroke="#9c774c" stroke-width="2" opacity=".65"/></pattern>
 <pattern id="clothTexture" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M0 4H26M0 17H26" stroke="#d0d6d2" stroke-width="1" opacity=".2"/></pattern>
 </defs>
+<g id="world">
 <!-- Lying-down first-person view of the bedroom -->
 <g id="homeScene">
 <rect width="900" height="506" fill="url(#bedroom)"/>
@@ -113,6 +121,20 @@ footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 <path d="M47 95H60M82 95H95" stroke="#43312a" stroke-width="5"/><path d="M58 119Q71 112 84 119" stroke="#78493b" stroke-width="4" fill="none"/>
 <g id="broom" style="display:none"><path d="M130 194L188 77" stroke="#684a2e" stroke-width="11" stroke-linecap="round"/><path d="M168 58L202 80L182 104L154 81Z" fill="#caa660" stroke="#684a2e" stroke-width="5"/></g>
 </g>
+
+<!-- Camera-facing impact illustrations, shown only during the two hit moments -->
+<g id="handStrike" style="display:none" transform="translate(1050 55) rotate(-18)">
+  <path d="M0 244Q-70 193 -166 204L-285 220Q-310 224 -304 244Q-300 261 -279 258L-179 249L-263 273Q-283 280 -274 296Q-267 311 -247 305L-154 279L-219 314Q-237 326 -225 341Q-213 357 -195 345L-109 307L-151 344Q-164 361 -150 374Q-136 387 -119 373L-40 313Q-8 292 0 279Z" fill="url(#skin)" stroke="#8f5f4c" stroke-width="7"/>
+  <path d="M-2 190Q-70 169 -135 180L-274 198Q-295 202 -292 220L-286 239Q-281 254 -260 249L-154 233L-248 263Q-267 270 -258 287L-252 299Q-244 315 -226 306L-130 276L-197 315Q-213 325 -203 340L-195 351Q-184 365 -168 354L-84 307L-127 347Q-138 361 -126 373L-119 379Q-104 392 -90 378L-25 315Q3 290 0 254Z" fill="url(#robe)" stroke="#65382c" stroke-width="8"/>
+  <path d="M-265 209L-158 196M-242 270L-157 246M-191 319L-121 285" stroke="#e0a27b" stroke-width="5" opacity=".45"/>
+</g>
+<g id="broomStrike" style="display:none" transform="translate(700 -80) rotate(-10)">
+  <path d="M0 380L370 0" stroke="#503924" stroke-width="20" stroke-linecap="round"/>
+  <path d="M337 -4Q365 -41 410 -33L448 -16L421 31L381 49L350 33Z" fill="#c99b50" stroke="#503924" stroke-width="7"/>
+  <path d="M357 6L430 -18M365 19L425 3M373 32L416 19" stroke="#e0bd77" stroke-width="5"/>
+</g>
+
+</g>
 </svg>
 <div id="eye-top" class="eyelid"></div><div id="eye-bottom" class="eyelid"></div>
 <div id="dialogue"><span id="speaker">당신</span><p id="text"></p><div id="actions"></div></div>
@@ -120,20 +142,183 @@ footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 <footer>제1장 · 현재에서 고려 시대로</footer>
 </main>
 <script>
-const q=(s)=>document.querySelector(s),stage=q("#stage"),home=q("#homeScene"),temple=q("#templeScene"),monk=q("#monk"),broom=q("#broom"),speaker=q("#speaker"),text=q("#text"),actions=q("#actions"),locationLabel=q("#location");
-function buttons(items){actions.replaceChildren();for(const item of items){const b=document.createElement("button");b.type="button";b.textContent=item.label;if(item.primary)b.className="primary";b.addEventListener("click",item.run);actions.append(b)}}
-function setScene(place){const isTemple=place==="temple";home.style.display=isTemple?"none":"";temple.style.display=isTemple?"":"none";locationLabel.textContent=isTemple?"고려 시대 · 절 안":"현재 · 침대에 누워서"}
-function dialogue(name,line,items=[]){speaker.textContent=name;text.textContent=line;buttons(items)}
-function closeEyes(done){stage.classList.remove("opening");void stage.offsetWidth;stage.classList.add("closing");setTimeout(()=>{stage.classList.remove("closing");if(done)done()},1750)}
-function openEyes(done){stage.classList.remove("closing");void stage.offsetWidth;stage.classList.add("opening");setTimeout(()=>{stage.classList.remove("opening");if(done)done()},1500)}
-function reset(){stage.classList.remove("closing","opening","hit","flinch");setScene("home");monk.setAttribute("class","hidden");monk.setAttribute("transform","translate(674 195)");broom.style.display="none";dialogue("당신","집에 돌아와 침대에 누웠습니다.\n“이제 좀 자야겠다.”",[{label:"잠든다",primary:true,run:sleepToTemple}])}
-function sleepToTemple(){dialogue("당신","눈꺼풀이 천천히 내려옵니다. 방 안의 불빛이 흐려지고, 당신은 잠에 빠져듭니다.");closeEyes(()=>{setScene("temple");monk.setAttribute("class","hidden");openEyes(()=>showWake())})}
-function showWake(){dialogue("당신","눈을 떠 보니 고려 시대의 절이었습니다.\n“여긴 어디지?” 어리둥절한 당신은 주위를 살폈습니다.",[{label:"주변을 둘러본다",primary:true,run:look},{label:"다시 잔다",run:dozeAgain}])}
-function look(){monk.style.display="";monk.setAttribute("class","visible");monk.setAttribute("transform","translate(685 197)");stage.classList.remove("hit");void stage.offsetWidth;stage.classList.add("hit");dialogue("당신","절 안을 둘러보던 순간, 누군가 머리를 툭 쳤습니다.\n“아야!” 아픈 머리를 감싸고 옆을 돌아봤습니다.",[{label:"옆을 돌아본다",primary:true,run:meetMonk}])}
-function dozeAgain(){dialogue("당신","다시 잠을 청하려고 눈을 감았습니다.");closeEyes(()=>{monk.setAttribute("class","visible");monk.setAttribute("transform","translate(685 197)");broom.style.display="";openEyes(()=>dialogue("당신","갑자기 스님이 빗자루로 당신을 때렸습니다!\n“아야! 누구야?!!”",[{label:"소리가 난 쪽을 본다",primary:true,run:meetMonk}]))})}
-function meetMonk(){broom.style.display="none";monk.setAttribute("transform","translate(530 197)");dialogue("스님","스님이 가까이 다가오며 물었습니다.\n“여기서 뭐 하는 게냐?”",[{label:"깜짝 놀라 비명을 지른다",primary:true,run:scream}])}
-function scream(){stage.classList.remove("flinch");void stage.offsetWidth;stage.classList.add("flinch");dialogue("당신","“아아악!” 갑자기 다가온 스님에 놀라 비명을 질렀습니다.",[{label:"제1장 다시 보기",primary:true,run:reset}])}
-q("#restart").addEventListener("click",reset);reset();
+const q=(s)=>document.querySelector(s);
+const stage=q("#stage"),home=q("#homeScene"),temple=q("#templeScene"),world=q("#world"),monk=q("#monk"),broom=q("#broom"),handStrike=q("#handStrike"),broomStrike=q("#broomStrike"),speaker=q("#speaker"),text=q("#text"),actions=q("#actions"),locationLabel=q("#location");
+let runId=0;
+let camera={x:0,y:0,s:1};
+let monkPose={x:674,y:195,s:1};
+const wait=(ms,id)=>new Promise(resolve=>setTimeout(()=>resolve(id===runId),ms));
+function buttons(items){
+  actions.replaceChildren();
+  for(const item of items){
+    const b=document.createElement("button");
+    b.type="button";b.textContent=item.label;
+    if(item.primary)b.className="primary";
+    b.addEventListener("click",item.run);
+    actions.append(b);
+  }
+}
+function dialogue(name,line,items=[]){
+  speaker.textContent=name;text.textContent=line;buttons(items);
+}
+function setScene(place){
+  const isTemple=place==="temple";
+  home.style.display=isTemple?"none":"";
+  temple.style.display=isTemple?"":"none";
+  locationLabel.textContent=isTemple?"고려 시대 · 절 안":"현재 · 침대에 누워서";
+}
+function setCamera(x,y,s){
+  camera={x:x,y:y,s:s};
+  world.setAttribute("transform","translate("+x+" "+y+") translate(450 253) scale("+s+") translate(-450 -253)");
+}
+function animateCamera(x,y,s,duration,id){
+  const from={...camera},start=performance.now();
+  return new Promise(resolve=>{
+    function frame(now){
+      if(id!==runId){resolve(false);return;}
+      const t=Math.min(1,(now-start)/duration),e=t*t*(3-2*t);
+      setCamera(from.x+(x-from.x)*e,from.y+(y-from.y)*e,from.s+(s-from.s)*e);
+      if(t<1)requestAnimationFrame(frame);else resolve(true);
+    }
+    requestAnimationFrame(frame);
+  });
+}
+function setMonkPose(x,y,s){
+  monkPose={x:x,y:y,s:s};
+  monk.setAttribute("transform","translate("+x+" "+y+") scale("+s+")");
+}
+function animateMonk(x,y,s,duration,id){
+  const from={...monkPose},start=performance.now();
+  return new Promise(resolve=>{
+    function frame(now){
+      if(id!==runId){resolve(false);return;}
+      const t=Math.min(1,(now-start)/duration),e=t*t*(3-2*t);
+      setMonkPose(from.x+(x-from.x)*e,from.y+(y-from.y)*e,from.s+(s-from.s)*e);
+      if(t<1)requestAnimationFrame(frame);else resolve(true);
+    }
+    requestAnimationFrame(frame);
+  });
+}
+function animateProp(el,from,to,duration,id){
+  el.style.display="";
+  el.style.opacity="1";
+  const start=performance.now();
+  return new Promise(resolve=>{
+    function frame(now){
+      if(id!==runId){el.style.display="none";resolve(false);return;}
+      const t=Math.min(1,(now-start)/duration),e=t*t*(3-2*t);
+      const x=from.x+(to.x-from.x)*e,y=from.y+(to.y-from.y)*e,a=from.a+(to.a-from.a)*e;
+      el.setAttribute("transform","translate("+x+" "+y+") rotate("+a+")");
+      if(t<1)requestAnimationFrame(frame);else resolve(true);
+    }
+    requestAnimationFrame(frame);
+  });
+}
+function closeEyes(id,duration=1750){
+  stage.classList.remove("opening","closing");void stage.offsetWidth;stage.classList.add("closing");
+  return wait(duration,id).then(ok=>{if(ok)stage.classList.remove("closing");return ok;});
+}
+function openEyes(id,duration=1500){
+  stage.classList.remove("closing","opening");void stage.offsetWidth;stage.classList.add("opening");
+  return wait(duration,id).then(ok=>{if(ok)stage.classList.remove("opening");return ok;});
+}
+async function impact(id){
+  stage.classList.remove("impact");void stage.offsetWidth;stage.classList.add("impact");
+  const ok=await wait(430,id);
+  if(ok)stage.classList.remove("impact");
+  return ok;
+}
+function reset(){
+  runId++;
+  stage.classList.remove("closing","opening","impact","scan","hit","flinch");
+  setScene("home");setCamera(0,0,1);
+  monk.setAttribute("class","hidden");setMonkPose(674,195,1);broom.style.display="none";
+  handStrike.style.display="none";broomStrike.style.display="none";
+  dialogue("당신","집에 돌아와 침대에 누웠습니다.\n“이제 좀 자야겠다.”",[{label:"잠든다",primary:true,run:sleepToTemple}]);
+}
+async function sleepToTemple(){
+  const id=++runId;
+  dialogue("당신","몸을 침대에 눕히자 천장이 흐릿해집니다. 눈꺼풀이 천천히 내려오고, 당신은 잠에 빠져듭니다.");
+  if(!await wait(700,id))return;
+  if(!await closeEyes(id))return;
+  setScene("temple");setCamera(0,0,1);monk.setAttribute("class","hidden");broom.style.display="none";
+  if(!await wait(350,id))return;
+  if(!await openEyes(id))return;
+  stage.classList.add("scan");
+  if(!await animateCamera(-18,1,1.04,700,id))return;
+  if(!await animateCamera(16,-2,1.045,850,id))return;
+  if(!await animateCamera(0,0,1,520,id))return;
+  stage.classList.remove("scan");
+  showWake();
+}
+function showWake(){
+  dialogue("당신","눈을 떠 보니 낯선 절 안입니다.\n“여긴 어디지?” 당신은 어리둥절한 채 주위를 살폈습니다.",[
+    {label:"주변을 둘러본다",primary:true,run:lookAround},
+    {label:"다시 잔다",run:dozeAgain}
+  ]);
+}
+async function lookAround(){
+  const id=++runId;
+  dialogue("당신","천천히 주위를 둘러봅니다. 멀리서 발소리가 들리고, 스님 한 분이 이쪽으로 다가옵니다.");
+  stage.classList.add("scan");
+  monk.setAttribute("class","visible");setMonkPose(810,195,.48);
+  if(!await animateCamera(-34,0,1.06,620,id))return;
+  if(!await animateMonk(715,180,.62,500,id))return;
+  if(!await animateCamera(21,-2,1.08,480,id))return;
+  if(!await animateMonk(565,132,1.08,1050,id))return;
+  if(!await animateCamera(0,0,1.02,420,id))return;
+  stage.classList.remove("scan");
+  dialogue("당신","스님이 바로 앞까지 다가왔습니다. 그 순간, 스님의 손이 눈앞으로 날아옵니다.");
+  if(!await animateProp(handStrike,{x:1050,y:45,a:-18},{x:755,y:65,a:-5},520,id))return;
+  if(!await impact(id))return;
+  handStrike.style.display="none";
+  if(!await animateCamera(-9,4,1.055,300,id))return;
+  dialogue("당신","스님에게 머리를 맞았습니다!\n“아야!” 아픈 머리를 감싸며 옆을 돌아봅니다.",[
+    {label:"옆을 돌아본다",primary:true,run:meetMonk}
+  ]);
+}
+async function dozeAgain(){
+  const id=++runId;
+  dialogue("당신","“꿈이겠지… 조금만 더 자자.” 다시 눈을 감습니다.");
+  if(!await wait(400,id))return;
+  if(!await closeEyes(id,1350))return;
+  setCamera(0,0,1);monk.setAttribute("class","visible");setMonkPose(760,180,.58);broom.style.display="";
+  if(!await wait(380,id))return;
+  if(!await openEyes(id,1250))return;
+  dialogue("당신","눈을 뜨자 스님이 빗자루를 들고 서 있습니다. 스님이 빗자루를 크게 휘두릅니다!");
+  if(!await animateMonk(570,132,1.08,820,id))return;
+  if(!await animateProp(broomStrike,{x:700,y:-80,a:-10},{x:375,y:35,a:30},560,id))return;
+  if(!await impact(id))return;
+  broomStrike.style.display="none";broom.style.display="none";
+  if(!await animateCamera(8,5,1.06,300,id))return;
+  dialogue("당신","빗자루에 맞아 정신이 번쩍 듭니다!\n“아야! 누구야?!!”",[
+    {label:"소리가 난 쪽을 본다",primary:true,run:meetMonk}
+  ]);
+}
+async function meetMonk(){
+  const id=++runId;
+  handStrike.style.display="none";broomStrike.style.display="none";broom.style.display="none";
+  stage.classList.add("scan");
+  dialogue("당신","옆을 돌아보자, 스님이 눈앞에 서 있습니다.");
+  if(!await animateCamera(12,0,1.04,430,id))return;
+  if(!await animateMonk(505,120,1.12,620,id))return;
+  stage.classList.remove("scan");
+  dialogue("스님","스님이 가까이 다가와 묻습니다.\n“여기서 뭐 하는 게냐?”",[
+    {label:"깜짝 놀라 비명을 지른다",primary:true,run:scream}
+  ]);
+}
+async function scream(){
+  const id=++runId;
+  dialogue("당신","“으아아악!” 깜짝 놀란 당신의 비명이 절 안에 울려 퍼집니다.");
+  stage.classList.remove("flinch");void stage.offsetWidth;stage.classList.add("flinch");
+  if(!await wait(950,id))return;
+  stage.classList.remove("flinch");
+  dialogue("당신","스님은 놀란 표정으로 당신을 바라봅니다. 제1장의 이야기가 계속됩니다.",[
+    {label:"제1장 다시 보기",primary:true,run:reset}
+  ]);
+}
+q("#restart").addEventListener("click",reset);
+reset();
 </script>
 </body>
 </html>
