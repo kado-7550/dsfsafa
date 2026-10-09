@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>직지, 선택의 기록 · 제1장</title>
 <style>
-:root{color-scheme:dark;--ink:#f7f0e1;--gold:#e2c481;--panel:#17211ee8}
+:root{color-scheme:dark;--ink:#f7f0e1;--gold:#e2c481;--panel:#17211ed6}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0,#34483a,#111814 78%);color:var(--ink);font-family:"Malgun Gothic","Apple SD Gothic Neo",sans-serif;display:grid;place-items:center;padding:20px}
 main{width:min(1120px,100%)}header{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:0 2px 14px}
 .brand small{display:block;color:var(--gold);font-size:.78rem;letter-spacing:.16em}.brand h1{font:700 clamp(1.3rem,3.4vw,2rem) Georgia,"Batang",serif;margin:4px 0 0}
@@ -17,9 +17,9 @@ button.primary{background:#a3723e;border-color:#e0c287}
 svg{display:block;width:100%;height:auto;aspect-ratio:900/506}
 #location{position:absolute;left:16px;top:15px;z-index:2;border:1px solid #f2e8cf66;border-radius:99px;background:#17211ebd;color:#f4ead1;padding:7px 12px;font-size:.8rem;letter-spacing:.04em}
 #chapter{position:absolute;right:16px;top:15px;z-index:2;color:#fff4d7;text-shadow:0 1px 6px #000;font-size:.85rem}
-#dialogue{position:absolute;left:3%;right:3%;bottom:3%;z-index:2;background:var(--panel);border:1px solid #d1bd8c;border-radius:12px;padding:15px 18px 14px;backdrop-filter:blur(5px);box-shadow:0 8px 28px #0006;min-height:132px}
+#dialogue{position:absolute;left:3%;right:3%;bottom:2%;z-index:2;background:var(--panel);border:1px solid #d1bd8c;border-radius:12px;padding:10px 15px 9px;backdrop-filter:blur(5px);box-shadow:0 8px 28px #0006;min-height:0}
 #speaker{display:inline-block;color:#f3d58f;font-weight:700;font-size:.9rem;margin-bottom:6px}
-#text{white-space:pre-line;line-height:1.7;margin:0 0 12px;font-size:clamp(.93rem,1.7vw,1.08rem);min-height:2.2em}
+#text{white-space:pre-line;line-height:1.5;margin:0 0 8px;font-size:clamp(.93rem,1.7vw,1.08rem);min-height:0}
 #actions{display:flex;flex-wrap:wrap;gap:8px}
 .eyelid{position:absolute;left:0;right:0;height:0;z-index:5;pointer-events:none}
 #eye-top{top:0;background:linear-gradient(#07080b 68%,#100d12);border-radius:0 0 50% 50% / 0 0 12% 12%}
@@ -34,6 +34,16 @@ svg{display:block;width:100%;height:auto;aspect-ratio:900/506}
 @keyframes hit{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}45%{transform:translateX(8px)}70%{transform:translateX(-4px)}}
 @keyframes flinch{0%,100%{filter:brightness(1)}50%{filter:brightness(1.6)}}
 #monk{transition:opacity .35s ease}#monk.hidden{opacity:0;display:none}#monk.visible{opacity:1;display:block}
+#leftLeg,#rightLeg,#leftArm,#rightArm{transform-box:fill-box;transform-origin:center top}
+#monk.walking #leftLeg{animation:stepLeft .32s ease-in-out infinite alternate}
+#monk.walking #rightLeg{animation:stepRight .32s ease-in-out infinite alternate}
+#monk.walking #leftArm{animation:armLeft .32s ease-in-out infinite alternate}
+#monk.walking #rightArm{animation:armRight .32s ease-in-out infinite alternate}
+@keyframes stepLeft{to{transform:rotate(-18deg) translateY(-3px)}}
+@keyframes stepRight{to{transform:rotate(18deg) translateY(-3px)}}
+@keyframes armLeft{to{transform:rotate(11deg)}}
+@keyframes armRight{to{transform:rotate(-11deg)}}
+
 #world{transform-origin:450px 253px}
 #handStrike,#broomStrike{pointer-events:none}
 #stage.impact{animation:impact .48s cubic-bezier(.2,.8,.25,1)}
@@ -42,7 +52,7 @@ svg{display:block;width:100%;height:auto;aspect-ratio:900/506}
 @media(prefers-reduced-motion:reduce){#stage.impact{animation-duration:.18s}}
 
 footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
-@media(max-width:620px){body{padding:8px}header{margin-bottom:8px}#dialogue{left:2%;right:2%;bottom:2%;padding:10px 12px;min-height:118px}#text{line-height:1.5;margin-bottom:8px}#actions button{padding:8px 11px;font-size:.9rem}#location,#chapter{top:8px;font-size:.72rem}#location{left:8px}#chapter{right:8px}}
+@media(max-width:620px){body{padding:8px}header{margin-bottom:8px}#dialogue{left:2%;right:2%;bottom:2%;padding:10px 12px;min-height:0}#text{line-height:1.5;margin-bottom:8px}#actions button{padding:8px 11px;font-size:.9rem}#location,#chapter{top:8px;font-size:.72rem}#location{left:8px}#chapter{right:8px}}
 </style>
 </head>
 <body>
@@ -87,26 +97,60 @@ footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 </g>
 <!-- First-person view from the temple floor, looking upward -->
 <g id="templeScene" style="display:none">
-<rect width="900" height="506" fill="url(#templewall)"/>
-<!-- roof underside and converging rafters -->
-<path d="M0 0H900V263Q687 226 450 213Q212 227 0 263Z" fill="#634332"/>
-<path d="M0 0L450 244L900 0M0 58L450 269L900 58M0 119L450 291L900 119" fill="none" stroke="#a45e3c" stroke-width="18"/>
-<path d="M0 176L450 312L900 176M0 229L450 332L900 229" fill="none" stroke="#422f25" stroke-width="12"/>
-<path d="M0 271Q450 231 900 271V506H0Z" fill="#97734e"/>
-<!-- view toward the far wall, with lattice windows -->
-<path d="M85 281H342V412H85Z" fill="#dfc79b" stroke="#694534" stroke-width="13"/>
-<path d="M149 284V408M213 283V408M277 283V408M89 324H338M89 367H338" stroke="#89553c" stroke-width="6"/>
-<path d="M555 282H811V413H555Z" fill="#6e4b36" stroke="#503628" stroke-width="12"/>
-<path d="M581 300H785V394H581Z" fill="#bb9663"/>
-<g fill="#e3d0a7" stroke="#704c34" stroke-width="3"><rect x="592" y="296" width="21" height="96" rx="4"/><rect x="623" y="302" width="21" height="90" rx="4"/><rect x="678" y="298" width="21" height="94" rx="4"/><rect x="738" y="300" width="21" height="92" rx="4"/></g>
-<!-- hanging wooden plaque -->
-<path d="M445 0V105" stroke="#553829" stroke-width="7"/><path d="M385 91H515V188H385Z" fill="#d1b47d" stroke="#593a2a" stroke-width="8"/>
-<text x="408" y="151" fill="#613d2b" font-size="29" font-family="serif">直指</text>
-<!-- low-floor perspective and mat at bottom edge -->
-<path d="M0 414Q450 365 900 414V506H0Z" fill="#65472f"/>
-<path d="M0 446Q450 397 900 446M0 480Q450 438 900 480" fill="none" stroke="#b18b58" stroke-width="7" opacity=".7"/>
-<path d="M0 0H900V506H0Z" fill="none" stroke="#120e0b" stroke-width="44" opacity=".2"/>
+<defs>
+  <linearGradient id="templeDepth" x2="0" y2="1"><stop stop-color="#241e1b"/><stop offset=".45" stop-color="#634832"/><stop offset="1" stop-color="#8c6947"/></linearGradient>
+  <linearGradient id="templeBeam" x2="0" y2="1"><stop stop-color="#986341"/><stop offset=".38" stop-color="#5c3e2c"/><stop offset="1" stop-color="#30241d"/></linearGradient>
+  <linearGradient id="pillar" x2="1" y2="0"><stop stop-color="#3e2a20"/><stop offset=".3" stop-color="#a16b43"/><stop offset=".7" stop-color="#70452e"/><stop offset="1" stop-color="#35251d"/></linearGradient>
+  <linearGradient id="paper" x2="1" y2=".3"><stop stop-color="#a58b66"/><stop offset=".5" stop-color="#e4d1a8"/><stop offset="1" stop-color="#9a7954"/></linearGradient>
+  <linearGradient id="floorWood" x2="0" y2="1"><stop stop-color="#96714a"/><stop offset=".35" stop-color="#6e4e34"/><stop offset="1" stop-color="#38291f"/></linearGradient>
+  <radialGradient id="altarLight"><stop stop-color="#ffe6a8" stop-opacity=".6"/><stop offset="1" stop-color="#ffc66c" stop-opacity="0"/></radialGradient>
+  <pattern id="templeGrain" width="92" height="34" patternUnits="userSpaceOnUse"><rect width="92" height="34" fill="#62432f"/><path d="M0 8Q22 2 45 8T92 6M0 24Q24 18 48 25T92 22" fill="none" stroke="#aa8051" stroke-width="2" opacity=".38"/></pattern>
+</defs>
+<!-- dark recess behind the warm wooden interior -->
+<rect width="900" height="506" fill="url(#templeDepth)"/>
+<path d="M0 0H900V201L450 282L0 201Z" fill="#30241e"/>
+<!-- layered roof boards and exposed wooden rafters -->
+<path d="M0 0H900V104L450 245L0 104Z" fill="#493126"/>
+<path d="M0 36L450 194L900 36M0 82L450 232L900 82M0 130L450 265L900 130" fill="none" stroke="#9a6440" stroke-width="18"/>
+<path d="M0 42L450 200L900 42M0 89L450 238L900 89" fill="none" stroke="#c08a58" stroke-width="3" opacity=".56"/>
+<path d="M0 0L450 245M126 0L450 245M274 0L450 245M626 0L450 245M774 0L450 245M900 0L450 245" fill="none" stroke="#261b16" stroke-width="13" opacity=".9"/>
+<!-- back wall, softened by warm lamplight -->
+<path d="M0 192L450 270L900 192V386Q450 360 0 386Z" fill="#76553a"/>
+<path d="M0 207L450 282L900 207" fill="none" stroke="#b27a4b" stroke-width="13" opacity=".65"/>
+<ellipse cx="450" cy="310" rx="270" ry="130" fill="url(#altarLight)"/>
+<!-- wooden lattice doors on either side of the altar -->
+<path d="M91 247L337 276V374L91 389Z" fill="#422d22" stroke="#3a281e" stroke-width="12"/>
+<path d="M105 258L326 283V362L105 376Z" fill="url(#paper)" stroke="#a7794d" stroke-width="5"/>
+<path d="M158 264L158 372M211 270L211 368M265 276L265 365M103 298L328 310M104 338L327 345" fill="none" stroke="#68432c" stroke-width="7"/>
+<path d="M565 283L808 253V376L565 362Z" fill="#422d22" stroke="#3a281e" stroke-width="12"/>
+<path d="M578 289L795 262V363L578 352Z" fill="url(#paper)" stroke="#a7794d" stroke-width="5"/>
+<path d="M631 282L631 358M684 275L684 360M739 268L739 366M576 319L798 309M577 341L797 335" fill="none" stroke="#68432c" stroke-width="7"/>
+<!-- heavy pillars frame the room and establish depth -->
+<path d="M43 120L124 135V409L43 424Z" fill="url(#pillar)" stroke="#302119" stroke-width="10"/>
+<path d="M31 116L135 133V154L31 136ZM31 398L135 381V404L31 425Z" fill="#4b3021"/>
+<path d="M769 135L858 119V424L769 408Z" fill="url(#pillar)" stroke="#302119" stroke-width="10"/>
+<path d="M758 133L870 114V137L758 157ZM758 382L870 400V424L758 403Z" fill="#4b3021"/>
+<path d="M62 154V392M790 155V390" stroke="#d1a06a" stroke-width="4" opacity=".25"/>
+<!-- hanging plaque and a low altar table -->
+<path d="M450 0V120" stroke="#4d3324" stroke-width="8"/>
+<path d="M383 107L517 107V208L383 208Z" fill="#a77d4d" stroke="#493021" stroke-width="9"/>
+<path d="M394 118L506 118V197L394 197Z" fill="#d0b47d" stroke="#765333" stroke-width="3"/>
+<text x="420" y="171" fill="#503725" font-size="31" font-family="serif">直指</text>
+<path d="M372 287L528 287L549 317L351 317Z" fill="#422b1f"/>
+<path d="M367 316L533 316V336L367 336Z" fill="url(#templeGrain)"/>
+<path d="M385 336L393 365M516 336L508 365" stroke="#39251b" stroke-width="12"/>
+<path d="M372 364H529" stroke="#a4784e" stroke-width="9"/>
+<path d="M380 284V252M520 284V252" stroke="#4f3524" stroke-width="5"/>
+<path d="M370 253Q380 239 390 253L386 272H374ZM510 253Q520 239 530 253L526 272H514Z" fill="#d89b50"/>
+<!-- foreground wooden floor, with boards converging toward the far wall -->
+<path d="M0 370Q450 351 900 370V506H0Z" fill="url(#floorWood)"/>
+<path d="M0 370Q450 351 900 370M0 409Q450 397 900 409M0 454Q450 448 900 454M0 499H900" fill="none" stroke="#b08858" stroke-width="5" opacity=".58"/>
+<path d="M35 506L344 368M170 506L389 366M310 506L430 363M590 506L470 363M730 506L511 366M865 506L556 368" fill="none" stroke="#38271d" stroke-width="5" opacity=".72"/>
+<path d="M36 506L345 369M864 506L555 369" fill="none" stroke="#c29a64" stroke-width="2" opacity=".35"/>
+<!-- subtle edge shade keeps attention on the approaching monk -->
+<path d="M0 0H900V506H0Z" fill="none" stroke="#100c09" stroke-width="52" opacity=".34"/>
 </g>
+
 <!-- Monk enters the viewer's field of vision -->
 <g id="monk" class="hidden" transform="translate(674 195)">
 <ellipse cx="71" cy="277" rx="76" ry="14" fill="#201710" opacity=".45"/>
@@ -114,8 +158,8 @@ footer{color:#bcb6a6;font-size:.82rem;text-align:center;margin:11px 0 0}
 <path d="M35 153Q57 177 45 223M111 151Q89 181 105 231M21 232Q67 248 120 231M54 169Q70 190 64 235" fill="none" stroke="#e0a27b" stroke-width="4" opacity=".35"/>
 <path d="M25 244Q70 258 126 242" fill="none" stroke="#4e3028" stroke-width="8" opacity=".75"/>
 <path d="M54 143L72 166L91 143" fill="#e2cf9f"/><path d="M70 164L81 175L76 247H62Z" fill="#d7b978"/>
-<path d="M27 160L4 222M111 160L137 211" stroke="#d5a17e" stroke-width="20" stroke-linecap="round"/>
-<path d="M42 248L38 278M95 248L103 278" stroke="#4a3b30" stroke-width="22" stroke-linecap="round"/>
+<path id="leftArm" d="M27 160L4 222" stroke="#d5a17e" stroke-width="20" stroke-linecap="round"/><path id="rightArm" d="M111 160L137 211" stroke="#d5a17e" stroke-width="20" stroke-linecap="round"/>
+<path id="leftLeg" d="M42 248L38 272Q36 278 26 278" stroke="#4a3b30" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path id="rightLeg" d="M95 248L103 272Q105 278 115 278" stroke="#4a3b30" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 282Q36 276 49 283M93 283Q107 276 122 282" stroke="#29211b" stroke-width="8" stroke-linecap="round"/>
 <ellipse cx="71" cy="91" rx="43" ry="50" fill="url(#skin)" stroke="#895c45" stroke-width="3"/>
 <path d="M29 86Q30 39 71 39Q111 40 113 88L101 74Q72 83 42 69Z" fill="#544438"/>
 <path d="M47 95H60M82 95H95" stroke="#43312a" stroke-width="5"/><path d="M58 119Q71 112 84 119" stroke="#78493b" stroke-width="4" fill="none"/>
@@ -187,14 +231,15 @@ function setMonkPose(x,y,s){
   monkPose={x:x,y:y,s:s};
   monk.setAttribute("transform","translate("+x+" "+y+") scale("+s+")");
 }
-function animateMonk(x,y,s,duration,id){
+function animateMonk(x,y,s,duration,id,walking=false){
   const from={...monkPose},start=performance.now();
+  if(walking)monk.classList.add("walking");
   return new Promise(resolve=>{
     function frame(now){
-      if(id!==runId){resolve(false);return;}
+      if(id!==runId){monk.classList.remove("walking");resolve(false);return;}
       const t=Math.min(1,(now-start)/duration),e=t*t*(3-2*t);
       setMonkPose(from.x+(x-from.x)*e,from.y+(y-from.y)*e,from.s+(s-from.s)*e);
-      if(t<1)requestAnimationFrame(frame);else resolve(true);
+      if(t<1)requestAnimationFrame(frame);else{monk.classList.remove("walking");resolve(true);}
     }
     requestAnimationFrame(frame);
   });
@@ -261,11 +306,11 @@ async function lookAround(){
   const id=++runId;
   dialogue("당신","천천히 주위를 둘러봅니다. 멀리서 발소리가 들리고, 스님 한 분이 이쪽으로 다가옵니다.");
   stage.classList.add("scan");
-  monk.setAttribute("class","visible");setMonkPose(810,195,.48);
+  monk.setAttribute("class","visible");setMonkPose(810,251,.48);
   if(!await animateCamera(-34,0,1.06,620,id))return;
-  if(!await animateMonk(715,180,.62,500,id))return;
+  if(!await animateMonk(715,230,.62,500,id,true))return;
   if(!await animateCamera(21,-2,1.08,480,id))return;
-  if(!await animateMonk(565,132,1.08,1050,id))return;
+  if(!await animateMonk(565,155,1.08,1050,id,true))return;
   if(!await animateCamera(0,0,1.02,420,id))return;
   stage.classList.remove("scan");
   dialogue("당신","스님이 바로 앞까지 다가왔습니다. 그 순간, 스님의 손이 눈앞으로 날아옵니다.");
@@ -282,11 +327,11 @@ async function dozeAgain(){
   dialogue("당신","“꿈이겠지… 조금만 더 자자.” 다시 눈을 감습니다.");
   if(!await wait(400,id))return;
   if(!await closeEyes(id,1350))return;
-  setCamera(0,0,1);monk.setAttribute("class","visible");setMonkPose(760,180,.58);broom.style.display="";
+  setCamera(0,0,1);monk.setAttribute("class","visible");setMonkPose(760,240,.58);broom.style.display="";
   if(!await wait(380,id))return;
   if(!await openEyes(id,1250))return;
   dialogue("당신","눈을 뜨자 스님이 빗자루를 들고 서 있습니다. 스님이 빗자루를 크게 휘두릅니다!");
-  if(!await animateMonk(570,132,1.08,820,id))return;
+  if(!await animateMonk(570,155,1.08,820,id,true))return;
   if(!await animateProp(broomStrike,{x:700,y:-80,a:-10},{x:375,y:35,a:30},560,id))return;
   if(!await impact(id))return;
   broomStrike.style.display="none";broom.style.display="none";
@@ -301,7 +346,7 @@ async function meetMonk(){
   stage.classList.add("scan");
   dialogue("당신","옆을 돌아보자, 스님이 눈앞에 서 있습니다.");
   if(!await animateCamera(12,0,1.04,430,id))return;
-  if(!await animateMonk(505,120,1.12,620,id))return;
+  if(!await animateMonk(505,165,1.12,620,id,true))return;
   stage.classList.remove("scan");
   dialogue("스님","스님이 가까이 다가와 묻습니다.\n“여기서 뭐 하는 게냐?”",[
     {label:"깜짝 놀라 비명을 지른다",primary:true,run:scream}
